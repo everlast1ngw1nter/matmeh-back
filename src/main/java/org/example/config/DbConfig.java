@@ -1,14 +1,12 @@
 package org.example.config;
 
 import javax.sql.DataSource;
-import lombok.RequiredArgsConstructor;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
-@RequiredArgsConstructor
 public class DbConfig {
 
     @Bean

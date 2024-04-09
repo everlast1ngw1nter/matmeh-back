@@ -1,13 +1,16 @@
 package org.example.repo;
 
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import org.example.client.GroupData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class DbService {
+
+    public DbService(@Autowired Dao dao) {
+        this.dao = dao;
+    }
 
     private final Dao dao;
 

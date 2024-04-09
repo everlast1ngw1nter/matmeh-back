@@ -1,13 +1,17 @@
 package org.example.config;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
-@RequiredArgsConstructor
 public class ClientConfiguration {
+
+    public ClientConfiguration(@Autowired ApplicationConfig applicationConfig){
+        this.applicationConfig = applicationConfig;
+    }
+
     private final ApplicationConfig applicationConfig;
 
     @Bean

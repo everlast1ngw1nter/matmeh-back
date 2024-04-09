@@ -1,11 +1,11 @@
 package org.example;
 
 import java.time.LocalDate;
-import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.client.UrfuWebClient;
 import org.example.repo.DbService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,10 +13,14 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@RequiredArgsConstructor
 @EnableScheduling
 @ConditionalOnProperty(value = "app.scheduler.enable", havingValue = "true")
 public class DataScheduler {
+
+    public DataScheduler(@Autowired UrfuWebClient urfuClient, @Autowired DbService dbService) {
+        this.urfuClient = urfuClient;
+        this.dbService = dbService;
+    }
 
     private final UrfuWebClient urfuClient;
 

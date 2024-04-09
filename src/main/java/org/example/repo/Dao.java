@@ -3,16 +3,19 @@ package org.example.repo;
 
 import java.util.ArrayList;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import org.example.client.GroupData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class Dao {
+
+    public Dao(@Autowired JdbcTemplate jdbcTemplateMap) {
+        this.jdbcTemplateMap = jdbcTemplateMap;
+    }
 
     private final JdbcTemplate jdbcTemplateMap;
 
