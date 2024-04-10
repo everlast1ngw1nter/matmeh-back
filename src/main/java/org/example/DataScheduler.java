@@ -31,9 +31,12 @@ public class DataScheduler {
 
     @Scheduled(fixedDelayString = "#{new Integer(${app.scheduler.interval}) * 1000}")
     public void update() {
+        LOGGER.info("is it time to update?");
         if (LocalDate.now().isEqual(lastUpdateTime)) {
+            LOGGER.info("no");
             return;
         }
+        LOGGER.info("udpating...");
         lastUpdateTime = LocalDate.now();
         var data = urfuClient.getFullGroupData(lastUpdateTime)
                 .stream()
