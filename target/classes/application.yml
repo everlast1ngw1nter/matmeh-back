@@ -1,0 +1,12 @@
+app:
+  scheduler:
+    enable: true
+    interval: 5
+  urfuBaseUrl: https://urfu.ru/api/v2/schedule/
+
+spring:
+  application:
+    name: bot
+
+server:
+  port: 8090

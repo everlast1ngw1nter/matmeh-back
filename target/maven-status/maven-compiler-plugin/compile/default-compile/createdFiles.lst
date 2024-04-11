@@ -1,0 +1,14 @@
+org\example\config\ClientConfiguration.class
+org\example\client\GroupData.class
+org\example\repo\Dao.class
+org\example\config\DbConfig.class
+org\example\repo\ScheduleDto.class
+org\example\client\UrfuWebClient.class
+org\example\config\ApplicationConfig$Scheduler.class
+org\example\config\ApplicationConfig.class
+org\example\Main.class
+org\example\client\DivisionData.class
+org\example\repo\DbService.class
+org\example\client\CourseData.class
+org\example\client\ListGroupData.class
+org\example\DataScheduler.class
