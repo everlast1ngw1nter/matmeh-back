@@ -32,13 +32,13 @@ public class DataScheduler {
     @Scheduled(fixedDelayString = "#{new Integer(${app.scheduler.interval}) * 1000}")
     public void update() {
         LOGGER.info("is it time to update?");
-        if (LocalDate.now().isEqual(lastUpdateTime)) {
+        if (!needToUpdate()) {
             LOGGER.info("no");
             return;
         }
         LOGGER.info("udpating...");
         lastUpdateTime = LocalDate.now();
-        var data = urfuClient.getFullGroupData(lastUpdateTime)
+        var data = urfuClient.getFullGroupData(lastUpdateTime, lastUpdateTime.plusDays(7))
                 .stream()
                 .filter(elem -> elem.auditoryLocation() != null && elem.auditoryLocation().endsWith("Тургенева, 4"))
                 .filter(elem -> elem.auditoryTitle() != null && (elem.auditoryTitle().startsWith("6") || elem.auditoryTitle().startsWith("5")))
@@ -46,5 +46,11 @@ public class DataScheduler {
         dbService.clearData();
         dbService.addAll(data);
         LOGGER.info("update was called");
+    }
+
+    private boolean needToUpdate() {
+        var currTime = LocalDate.now();
+        var updateTime = lastUpdateTime.plusDays(7);
+        return !updateTime.isAfter(currTime);
     }
 }

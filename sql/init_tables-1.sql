@@ -1,5 +1,6 @@
 CREATE TABLE schedule(
     pair_number INT,
     auditory VARCHAR(6),
-    PRIMARY KEY (pair_number, auditory)
+    date TIMESTAMP,
+    PRIMARY KEY (pair_number, auditory, date)
 );

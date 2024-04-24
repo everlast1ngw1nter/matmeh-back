@@ -22,8 +22,8 @@ public class Dao {
     public void add(GroupData groupData) {
         try {
             jdbcTemplateMap.update(
-                    "INSERT INTO schedule (pair_number, auditory) VALUES (?, ?)",
-                    groupData.pairNumber(), groupData.auditoryTitle());
+                    "INSERT INTO schedule (pair_number, auditory, date) VALUES (?, ?, ?)",
+                    groupData.pairNumber(), groupData.auditoryTitle(), groupData.date());
         } catch (DuplicateKeyException ignored) {
 
         }

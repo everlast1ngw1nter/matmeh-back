@@ -20,13 +20,13 @@ public class UrfuWebClient {
 
     private final static int LAST_COURSE = 6;
 
-    public List<GroupData> getFullGroupData(LocalDate date) {
+    public List<GroupData> getFullGroupData(LocalDate startDate, LocalDate endDate) {
         var resultData = new ArrayList<GroupData>();
         for (var division : filterUselessDivisionData(getDivisionsList())){
             for (var course = FIRST_COURSE; course <= LAST_COURSE; course++) {
                 var courseData = getCourseInfo(division.id(), course);
                 for (var group : courseData) {
-                    resultData.addAll(getGroupDataList(group.id(), date).events());
+                    resultData.addAll(getGroupDataList(group.id(), startDate, endDate).events());
                 }
             }
         }
@@ -53,10 +53,15 @@ public class UrfuWebClient {
                 .block();
     }
 
-    public ListGroupData getGroupDataList(int group, LocalDate date) {
+    public ListGroupData getGroupDataList(int group, LocalDate startDate, LocalDate endDate) {
         return urfuClient
+                .mutate()
+                .codecs(configurer -> configurer
+                        .defaultCodecs()
+                        .maxInMemorySize(16 * 1024 * 1024))
+                .build()
                 .get()
-                .uri("groups/{group}/schedule?date={date}", group, date)
+                .uri("groups/{group}/schedule?date_gte={startDate}&date_lte={endDate}", group, startDate, endDate)
                 .retrieve()
                 .bodyToMono(ListGroupData.class)
                 .block();
