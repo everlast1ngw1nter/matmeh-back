@@ -43,7 +43,8 @@ public class Dao {
         while (rowSet.next()) {
             listDto.add(new ScheduleDto(
                     rowSet.getInt("pair_number"),
-                    rowSet.getString("auditory")
+                    rowSet.getString("auditory"),
+                    rowSet.getDate("date").toLocalDate()
             ));
         }
         return listDto;

@@ -43,7 +43,9 @@ public class DataScheduler {
                 .filter(elem -> elem.auditoryLocation() != null && elem.auditoryLocation().endsWith("Тургенева, 4"))
                 .filter(elem -> elem.auditoryTitle() != null && (elem.auditoryTitle().startsWith("6") || elem.auditoryTitle().startsWith("5")))
                 .toList();
+        LOGGER.info("got all data from api");
         dbService.clearData();
+        LOGGER.info("old data cleared");
         dbService.addAll(data);
         LOGGER.info("update was called");
     }
