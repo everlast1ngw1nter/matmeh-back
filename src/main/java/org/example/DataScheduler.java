@@ -25,7 +25,7 @@ public class DataScheduler {
     private final UrfuWebClient urfuClient;
 
     private final DbService dbService;
-    private static LocalDate lastUpdateTime = LocalDate.of(1999, 12, 24);
+    private static LocalDate lastUpdateTime = LocalDate.of(2024, 4, 24);
 
     private final static Logger LOGGER = LogManager.getLogger();
 
