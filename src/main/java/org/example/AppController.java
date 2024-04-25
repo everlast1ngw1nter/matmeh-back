@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins={"http://localhost:3000", "http://localhost:5000", "http://localhost:63342"})
 public class AppController {
 
     public AppController(@Autowired DbService dbService) {
