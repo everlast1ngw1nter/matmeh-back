@@ -42,4 +42,8 @@ public class DbService {
                 .filter(elem -> elem.date().isEqual(date))
                 .toList();
     }
+
+    public LocalDate getMaxAvailableDate() {
+        return dao.getMaxAvailableDate();
+    }
 }

@@ -1,7 +1,7 @@
 app:
   scheduler:
     enable: true
-    interval: 5
+    interval: 50
   urfuBaseUrl: https://urfu.ru/api/v2/schedule/
 
 spring:

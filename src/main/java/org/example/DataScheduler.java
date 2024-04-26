@@ -25,14 +25,14 @@ public class DataScheduler {
     private final UrfuWebClient urfuClient;
 
     private final DbService dbService;
-    private static LocalDate lastUpdateTime = LocalDate.of(2024, 4, 24);
 
     private final static Logger LOGGER = LogManager.getLogger();
 
     @Scheduled(fixedDelayString = "#{new Integer(${app.scheduler.interval}) * 1000}")
     public void update() {
         LOGGER.info("is it time to update?");
-        if (!needToUpdate()) {
+        var lastUpdateTime = dbService.getMaxAvailableDate();
+        if (!needToUpdate(lastUpdateTime)) {
             LOGGER.info("no");
             return;
         }
@@ -50,7 +50,7 @@ public class DataScheduler {
         LOGGER.info("update was called");
     }
 
-    private boolean needToUpdate() {
+    private boolean needToUpdate(LocalDate lastUpdateTime) {
         var currTime = LocalDate.now();
         var updateTime = lastUpdateTime.plusDays(7);
         return !updateTime.isAfter(currTime);

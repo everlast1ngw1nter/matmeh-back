@@ -1,6 +1,7 @@
 package org.example.repo;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.example.client.GroupData;
@@ -36,6 +37,16 @@ public class Dao {
 
     public void deleteAll() {
         jdbcTemplateMap.update("DELETE FROM schedule");
+    }
+
+    public LocalDate getMaxAvailableDate() {
+        var rs = jdbcTemplateMap.queryForRowSet("SELECT MAX(date) FROM schedule");
+        rs.next();
+        try {
+            return rs.getTimestamp(1).toLocalDateTime().toLocalDate();
+        } catch (NullPointerException e) {
+            return LocalDate.of(1999, 12, 24);
+        }
     }
 
     private List<ScheduleDto> convertToDto(SqlRowSet rowSet) {
