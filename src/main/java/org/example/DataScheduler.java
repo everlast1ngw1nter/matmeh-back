@@ -31,14 +31,14 @@ public class DataScheduler {
     @Scheduled(fixedDelayString = "#{new Integer(${app.scheduler.interval}) * 1000}")
     public void update() {
         LOGGER.info("is it time to update?");
-        var lastUpdateTime = dbService.getMaxAvailableDate();
-        if (!needToUpdate(lastUpdateTime)) {
+        var maxAvailableTime = dbService.getMaxAvailableDate();
+        if (!needToUpdate(maxAvailableTime)) {
             LOGGER.info("no");
             return;
         }
+        maxAvailableTime = LocalDate.now();
         LOGGER.info("udpating...");
-        lastUpdateTime = LocalDate.now();
-        var data = urfuClient.getFullGroupData(lastUpdateTime, lastUpdateTime.plusDays(7))
+        var data = urfuClient.getFullGroupData(maxAvailableTime, maxAvailableTime.plusDays(6))
                 .stream()
                 .filter(elem -> elem.auditoryLocation() != null && elem.auditoryLocation().endsWith("Тургенева, 4"))
                 .filter(elem -> elem.auditoryTitle() != null && (elem.auditoryTitle().startsWith("6") || elem.auditoryTitle().startsWith("5")))
@@ -50,9 +50,8 @@ public class DataScheduler {
         LOGGER.info("update was called");
     }
 
-    private boolean needToUpdate(LocalDate lastUpdateTime) {
+    private boolean needToUpdate(LocalDate maxAvailableTime) {
         var currTime = LocalDate.now();
-        var updateTime = lastUpdateTime.plusDays(7);
-        return !updateTime.isAfter(currTime);
+        return maxAvailableTime.isBefore(currTime);
     }
 }
