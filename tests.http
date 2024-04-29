@@ -1,6 +1,6 @@
 // пример запроса по дате
-GET http://localhost:8091/date/2024-04-24
+GET http://localhost:8091/date/2024-04-30
 
 // пример запроса по дате и паре
 ###
-GET http://localhost:8091/date/2024-04-24/pair/5
+GET http://localhost:8091/date/2024-04-30/pair/5

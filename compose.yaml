@@ -1,0 +1,44 @@
+services:
+  java-app:
+    image: 4c6fc3926dd368022ac79d233c77852ec5097875777e0199242e8885535eee04
+    ports:
+      - "8091:8091"
+    depends_on:
+      - postgresql
+    networks:
+      - backend
+  postgresql:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: map
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+    networks:
+      - backend
+#  liquibase-migrations:
+#    image: liquibase/liquibase:4.25
+#    depends_on:
+#      - postgresql
+#    command:
+#      - --changelog-file=master.xml
+#      - --driver=org.postgresql.Driver
+#      - --url=jdbc:postgresql://postgresql:5432/map
+#      - --username=postgres
+#      - --password=postgres
+#      - update
+#    volumes:
+#      - ./migrations:/liquibase/changelog
+#    networks:
+#      - backend
+
+
+volumes:
+  postgresql: { }
+
+networks:
+  backend:
+    driver: "bridge"
