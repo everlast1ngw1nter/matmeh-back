@@ -39,8 +39,8 @@ public class Dao {
         jdbcTemplateMap.update("DELETE FROM schedule");
     }
 
-    public LocalDate getMaxAvailableDate() {
-        var rs = jdbcTemplateMap.queryForRowSet("SELECT MAX(date) FROM schedule");
+    public LocalDate getMinAvailableDate() {
+        var rs = jdbcTemplateMap.queryForRowSet("SELECT MIN(date) FROM schedule");
         rs.next();
         try {
             return rs.getTimestamp(1).toLocalDateTime().toLocalDate();

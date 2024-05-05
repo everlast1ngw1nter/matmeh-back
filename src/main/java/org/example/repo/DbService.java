@@ -43,7 +43,7 @@ public class DbService {
                 .toList();
     }
 
-    public LocalDate getMaxAvailableDate() {
-        return dao.getMaxAvailableDate();
+    public LocalDate getMinAvailableDate() {
+        return dao.getMinAvailableDate();
     }
 }
