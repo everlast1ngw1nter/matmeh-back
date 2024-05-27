@@ -12,7 +12,7 @@ public class DbConfig {
     @Bean
     public static DataSource dataSource() {
         var dataSource = new PGSimpleDataSource();
-        dataSource.setUrl("jdbc:postgresql://postgresql:5432/map");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/map");
         dataSource.setUser("postgres");
         dataSource.setPassword("postgres");
         return dataSource;

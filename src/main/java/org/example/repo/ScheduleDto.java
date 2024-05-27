@@ -5,6 +5,10 @@ import java.time.LocalDate;
 public record ScheduleDto(
         int pairNumber,
         String auditory,
-        LocalDate date
+        LocalDate date,
+        String lesson,
+        String lessonType,
+        String groupName,
+        String teacherName
 ) {
 }

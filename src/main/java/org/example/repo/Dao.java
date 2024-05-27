@@ -23,8 +23,11 @@ public class Dao {
     public void add(GroupData groupData) {
         try {
             jdbcTemplateMap.update(
-                    "INSERT INTO schedule (pair_number, auditory, date) VALUES (?, ?, ?)",
-                    groupData.pairNumber(), groupData.auditoryTitle(), groupData.date());
+                    "INSERT INTO " +
+                            "schedule (pair_number, auditory, date, group_name, lesson, lesson_type, teacher) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    groupData.pairNumber(), groupData.auditoryTitle(), groupData.date(), groupData.groupName(),
+                    groupData.lesson(), groupData.lessonType(), groupData.teacherName());
         } catch (DuplicateKeyException ignored) {
 
         }
@@ -55,7 +58,11 @@ public class Dao {
             listDto.add(new ScheduleDto(
                     rowSet.getInt("pair_number"),
                     rowSet.getString("auditory"),
-                    rowSet.getDate("date").toLocalDate()
+                    rowSet.getDate("date").toLocalDate(),
+                    rowSet.getString("lesson"),
+                    rowSet.getString("lesson_type"),
+                    rowSet.getString("group_name"),
+                    rowSet.getString("teacher")
             ));
         }
         return listDto;

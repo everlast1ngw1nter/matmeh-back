@@ -26,7 +26,7 @@ public class UrfuWebClient {
             for (var course = FIRST_COURSE; course <= LAST_COURSE; course++) {
                 var courseData = getCourseInfo(division.id(), course);
                 for (var group : courseData) {
-                    resultData.addAll(getGroupDataList(group.id(), startDate, endDate).events());
+                    resultData.addAll(parseListDtoGroupData(getGroupDataList(group.id(), startDate, endDate)));
                 }
             }
         }
@@ -76,5 +76,16 @@ public class UrfuWebClient {
                 .stream()
                 .filter(elem -> !parents.contains(elem.id()))
                 .toList();
+    }
+
+    private List<GroupData> parseListDtoGroupData(ListGroupData listDtoData) {
+        var res = new ArrayList<GroupData>();
+        for (var dtoData : listDtoData.events()) {
+            var newData = new GroupData(dtoData.pairNumber(), dtoData.date(), dtoData.auditoryTitle(),
+                    dtoData.auditoryLocation(), dtoData.lesson(), dtoData.lessonType(),
+                    listDtoData.group().groupName(), dtoData.teacherName());
+            res.add(newData);
+        }
+        return res;
     }
 }
