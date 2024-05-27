@@ -1,10 +1,11 @@
 services:
   java-app:
-    image: 4c6fc3926dd368022ac79d233c77852ec5097875777e0199242e8885535eee04
+    image: c547311e3d406ba784ee434120a020ee63f30b5edc5610dd1383f4fe304dd879
     ports:
       - "8091:8091"
     depends_on:
       - postgresql
+      - liquibase-migrations
     networks:
       - backend
   postgresql:
