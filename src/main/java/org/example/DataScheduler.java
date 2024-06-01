@@ -32,11 +32,16 @@ public class DataScheduler {
     public void update() {
         LOGGER.info("is it time to update?");
         var minAvailableTime = dbService.getMinAvailableDate();
-        if (!needToUpdate(minAvailableTime)) {
+//        if (!needToUpdate(minAvailableTime)) {
+//            LOGGER.info("no");
+//            return;
+//        }
+        if (minAvailableTime.isEqual(LocalDate.of(2024, 5, 27))) {
             LOGGER.info("no");
             return;
+        } else {
+            minAvailableTime = LocalDate.of(2024, 5, 27);
         }
-        minAvailableTime = LocalDate.now();
         LOGGER.info("udpating...");
         var data = urfuClient.getFullGroupData(minAvailableTime, minAvailableTime.plusDays(6))
                 .stream()
