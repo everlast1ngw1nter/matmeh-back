@@ -6,5 +6,5 @@ CREATE TABLE schedule(
     lesson TEXT,
     lesson_type TEXT,
     teacher TEXT,
-    PRIMARY KEY (pair_number, auditory, date)
+    PRIMARY KEY (pair_number, auditory, date, group_name)
 );
